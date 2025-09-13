@@ -3,15 +3,18 @@ import tkinter as tk
 
 
 class MyButton():
-    def __init__(self, master, title, commandname, r, c, y):
+    def __init__(self, master):
         self.master = master
-        self.button_result = None
+        self.button = tk.Button(master) 
 
-        self.button = tk.Button(master, text=title, command=commandname)
+    def action(self, commandname):
+        self.button.configure(command=commandname)
 
-        self.button.grid(row=r, column=c, pady=y)
+    def location(self, r, c, x, y):
+        self.button.grid(row=r, column=c, padx=x, pady=y)
 
-    def button_action(self):
-        self.button_result = "Data from button click!"
-        print(f"Class attribute updated to: {self.button_result}")
+    def title(self,name_of_button):
+        self.button.configure(text=name_of_button)
+
+
 

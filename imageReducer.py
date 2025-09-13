@@ -43,44 +43,70 @@ def process_images():
     print(output_directory)
     print(input_directory)
 
+
+def update_label(value):
+    # This function is called when the slider value changes
+    label.config(text=f"Slider Value: {int(float(value))}")
+
+paddyX=5
+paddyY=0
+
+
 # Create main window
 root = tk.Tk()
 root.title("Folder Picker")
 root.geometry("800x400")
 
-# Button to open folder dialog
-btn_image = buttonmodule.MyButton(root,"Image Folder", 
-     pick_image_folder,0,0,2)
+
+# Button to choose folder the images are at
+btn_image = buttonmodule.MyButton(root) 
+btn_image.title("Image Folder")
+btn_image.action(pick_image_folder)
+btn_image.location(0,0,paddyX,paddyY)
+
 
 # Label to display selected folder
 input_label = tk.Label(root, text="No folder selected", 
      wraplength=350, justify="center")
+input_label.grid(row=1, column=0, padx=paddyX, pady=paddyY)
 
 
-input_label.grid(row=1, column=0, pady=2)
+# Button to choose converted folder
+btn_converted_image = buttonmodule.MyButton(root)
+btn_converted_image.title("Output Imagee Folder")
+btn_converted_image.action(pick_converted_image_folder)
+btn_converted_image.location(2,0,paddyX,paddyY)
 
-# Button to open folder dialog
-btn_converted_image = buttonmodule.MyButton(root,"Output Image Folder", 
-    pick_converted_image_folder,2,0,2)
 
 # Label to display selected folder
 output_label = tk.Label(root, text="No folder selected", 
     wraplength=350, justify="center")
+output_label.grid(row=3, column=0, padx=paddyX,  pady=paddyY)
 
-output_label.grid(row=3, column=0, pady=2)
 
-# Button to open folder dialog
-btn_process = tk.Button(root, text="Process Images", 
-    command=process_images)
+# Create a label to display the slider's value
+label = tk.Label(root, text="Slider Value: 0")
+label.grid(row=4, column=0, padx=paddyX,  pady=paddyY)
 
-btn_process.grid(row=4, column=0, pady=2)
 
+# Create a horizontal slider
+slider = tk.Scale(root, from_=0, to=100, orient=tk.HORIZONTAL, 
+     command=update_label)
+slider.grid(row=5, column=0, padx=paddyX, pady=paddyY)
+
+
+# Button to Process Images
+btn_process = buttonmodule.MyButton(root)
+btn_process.title("Process Images")
+btn_process.action(process_images)
+btn_process.location(6, 0, paddyX, paddyY)
+
+
+# list box of image files
 file_listbox = tk.Listbox(root, width=60, height=15)
+file_listbox.grid(row=0, column=2, columnspan=2, rowspan=6, 
+    padx= 20,  pady=paddyY)
 
-file_listbox.grid(row=0, column=2, columnspan=2, rowspan=4, 
-    padx= 2,  pady=2)
-
-#bbtn_test = buttonmodule.MyButton(root,5,0,2)
 
 # Run the GUI
 root.mainloop()
