@@ -1,4 +1,10 @@
 #!/usr/bin/python3
+"""
+File: buttonmodule.py
+Author: John Major
+Date: 2025-09-14
+Description:  Class to create button
+"""
 import tkinter as tk
 
 

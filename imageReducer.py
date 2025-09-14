@@ -1,4 +1,17 @@
 #!/usr/bin/python3
+"""
+File: imageReducer.py
+Author: John Major
+Date: 2025-09-14
+Description:  This program lets the user choose a folder with images, 
+folder for the output, and a slider between 0-100 to choose the 
+reduce image using Pillow
+
+associated file:
+    buttonmodule.py
+    reduceimagemodule.py
+"""
+
 import reduceimagemodule
 import buttonmodule
 import tkinter as tk
@@ -39,9 +52,16 @@ def pick_converted_image_folder():
 
 
 def process_images():
-    print("Hello")
-    print(output_directory)
-    print(input_directory)
+
+    ConvertImage = reduceimagemodule.ImgReduce(input_directory,
+        output_directory, slider.get())
+
+    files_and_dirs = os.listdir(input_directory)
+    for item in files_and_dirs:
+        print("Processing file: " + item)
+        ConvertImage.process(item)
+
+    print("Done")
 
 
 def update_label(value):

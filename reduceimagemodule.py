@@ -1,23 +1,27 @@
 #!/usr/bin/python3
+"""
+File: reduceimagenmodule.py
+Author: John Major
+Date: 2025-09-14
+Description:  Class to reduce image files
+"""
+
+
 # Import the Images module from pillow
 from PIL import Image
 
 
 class ImgReduce():
-    def __init__(self, parent):
-        print("John")
+    def __init__(self, inDir, outDir, qValue):
+        self.inDir = inDir
+        self.outDir = outDir
+        self.qValue = qValue
 
 
-# Open the image by specifying the image path.
-#image_path = "image_name.jpeg"
-#image_file = Image.open(image_path)
+    def process(self,file):
+        image_path = self.inDir + "/" + file
+        image_file = Image.open(image_path)
+        image_file.save(self.outDir + "/" + file,
+            quality=self.qValue)
 
-# the default
-#image_file.save("image_name.jpg", quality=95)
 
-# Changing the image resolution using quality parameter
-# Example-1
-#image_file.save("image_name2.jpg", quality=25)
-
-# Example-2
-#image_file.save("image_name3.jpg", quality=1)
