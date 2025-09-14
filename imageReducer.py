@@ -58,7 +58,14 @@ def process_images():
 
     files_and_dirs = os.listdir(input_directory)
     for item in files_and_dirs:
+        fileparts = item.split('.')
+        filedescription = fileparts[0].split('_')
+        material = filedescription[0]
+        location = filedescription[1]
+        imagenumber = filedescription[2]
         print("Processing file: " + item)
+        print("Material: " + material + " Location: " + location +
+              " ImageNumber: " + imagenumber)
         ConvertImage.process(item)
 
     print("Done")
@@ -69,13 +76,13 @@ def update_label(value):
     label.config(text=f"Slider Value: {int(float(value))}")
 
 paddyX=5
-paddyY=0
+paddyY=5
 
 
 # Create main window
 root = tk.Tk()
-root.title("Folder Picker")
-root.geometry("800x400")
+root.title("Image Buld reducer")
+root.geometry("900x500")
 
 
 # Button to choose folder the images are at
