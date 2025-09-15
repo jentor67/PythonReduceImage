@@ -7,11 +7,13 @@ Description:  Class to create button
 """
 import tkinter as tk
 
+#tk.Button(root, text="Click Me", width=15, height=1)
 
 class MyButton():
     def __init__(self, master):
         self.master = master
-        self.button = tk.Button(master) 
+        self.button = tk.Button(master)
+        self.button.configure(width=15, height=1)
 
     def action(self, commandname):
         self.button.configure(command=commandname)

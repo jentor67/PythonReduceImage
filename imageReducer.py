@@ -14,6 +14,7 @@ associated file:
 
 import reduceimagemodule
 import buttonmodule
+import itemmodule
 import tkinter as tk
 import os
 from tkinter import filedialog
@@ -56,13 +57,12 @@ def process_images():
     ConvertImage = reduceimagemodule.ImgReduce(input_directory,
         output_directory, slider.get())
 
+    getItemParts = itemmodule.Item()
+
     files_and_dirs = os.listdir(input_directory)
     for item in files_and_dirs:
-        fileparts = item.split('.')
-        filedescription = fileparts[0].split('_')
-        material = filedescription[0]
-        location = filedescription[1]
-        imagenumber = filedescription[2]
+        material, location, imagenumber = getItemParts.getparts(item)
+
         print("Processing file: " + item)
         print("Material: " + material + " Location: " + location +
               " ImageNumber: " + imagenumber)
@@ -73,7 +73,8 @@ def process_images():
 
 def update_label(value):
     # This function is called when the slider value changes
-    label.config(text=f"Slider Value: {int(float(value))}")
+    slider_label.config(text=f"Slider Value: {int(float(value))}")
+
 
 paddyX=5
 paddyY=5
@@ -81,8 +82,8 @@ paddyY=5
 
 # Create main window
 root = tk.Tk()
-root.title("Image Buld reducer")
-root.geometry("900x500")
+root.title("Image reducer")
+root.geometry("800x400")
 
 
 # Button to choose folder the images are at
@@ -111,15 +112,20 @@ output_label = tk.Label(root, text="No folder selected",
 output_label.grid(row=3, column=0, padx=paddyX,  pady=paddyY)
 
 
-# Create a label to display the slider's value
-label = tk.Label(root, text="Slider Value: 0")
-label.grid(row=4, column=0, padx=paddyX,  pady=paddyY)
+# Create a label for Slider
+reducer_label = tk.Label(root, text="Percentage reducer")
+reducer_label.grid(row=4, column=0, padx=paddyX, pady=paddyY)
 
 
 # Create a horizontal slider
 slider = tk.Scale(root, from_=0, to=100, orient=tk.HORIZONTAL, 
      command=update_label)
 slider.grid(row=5, column=0, padx=paddyX, pady=paddyY)
+
+
+# Create a label to display the slider's value
+slider_label = tk.Label(root, text="Slider Value: 0")
+slider_label.grid(row=6, column=0, padx=paddyX,  pady=paddyY)
 
 
 # Button to Process Images
@@ -129,10 +135,16 @@ btn_process.action(process_images)
 btn_process.location(6, 0, paddyX, paddyY)
 
 
+# Create a label for list box
+listbox_label = tk.Label(root, text="Image list")
+listbox_label.grid(row=0, column=2, padx=20, pady=paddyY, 
+    sticky='W')
+
+
 # list box of image files
 file_listbox = tk.Listbox(root, width=60, height=15)
-file_listbox.grid(row=0, column=2, columnspan=2, rowspan=6, 
-    padx= 20,  pady=paddyY)
+file_listbox.grid(row=1, column=2, columnspan=2, rowspan=6, 
+    padx= 20,  pady=paddyY, sticky='W')
 
 
 # Run the GUI
