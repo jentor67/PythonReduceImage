@@ -18,6 +18,7 @@ import itemmodule
 import tkinter as tk
 import os
 from tkinter import filedialog
+#from tkcalendar import Calendar
 
 
 output_directory = ""
@@ -60,10 +61,11 @@ def process_images():
     getItemParts = itemmodule.Item()
 
     files_and_dirs = os.listdir(input_directory)
-    for item in files_and_dirs:
+    visible_items = [item for item in files_and_dirs if not item.startswith(".")]
+    for item in visible_items: 
+        print("Processing file: " + item)
         material, location, imagenumber = getItemParts.getparts(item)
 
-        print("Processing file: " + item)
         print("Material: " + material + " Location: " + location +
               " ImageNumber: " + imagenumber)
         ConvertImage.process(item)
