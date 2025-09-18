@@ -16,10 +16,12 @@ import reduceimagemodule
 import buttonmodule
 import itemmodule
 import tkinter as tk
+from tkinter import font
 import os
 from tkinter import filedialog
 from tkcalendar import *
 import datetime
+from datetime import date
 
 
 output_directory = ""
@@ -29,7 +31,8 @@ input_directory = ""
 today = datetime.date.today()
 
 def grab_date():
-    getdate_label.config(text="The date chosen is: " + cal.get_date())    
+    present_date = cal.get_date()
+    getdate_label.config(text="The date chosen is: " + present_date)    
 
 def pick_image_folder():
     global input_directory
@@ -71,11 +74,15 @@ def process_images():
     visible_items = [item for item in files_and_dirs if not item.startswith(".")]
     for item in visible_items: 
         print("Processing file: " + item)
-        material, location, imagenumber = getItemParts.getparts(item)
+        material, location, imagenumber, file_name, extension = \
+          getItemParts.getparts(item)
 
         print("Material: " + material + " Location: " + location +
               " ImageNumber: " + imagenumber)
-        ConvertImage.process(item)
+
+        present_date = cal.get_date()
+        ConvertImage.process(
+                item, file_name, present_date, extension)
 
     print("Done")
 
@@ -85,19 +92,20 @@ def update_label(value):
     slider_label.config(text=f"Slider Value: {int(float(value))}")
 
 
-paddyX=5
+paddyX=15
 paddyY=5
 
 
 # Create main window
 root = tk.Tk()
 root.title("Image reducer")
-root.geometry("1000x400")
+root.geometry("1000x600")
 
+bold_font = font.Font(family="Arial", size=11, weight="bold")
 
 # Button to choose folder the images are at
 
-image_label = tk.Label(root, text="Choose folder of images")
+image_label = tk.Label(root, text="Choose folder of images",font=bold_font)
 image_label.grid(row=0,column=0,padx=paddyX, pady=paddyY)
 
 btn_image = buttonmodule.MyButton(root) 
@@ -113,7 +121,8 @@ input_label.grid(row=2, column=0, padx=paddyX, pady=paddyY)
 
 
 # Button to choose converted folder
-imageout_label = tk.Label(root, text="Choose out folder of images")
+imageout_label = tk.Label(root, text="Choose out folder of images",
+                          font=bold_font)
 imageout_label.grid(row=3,column=0,padx=paddyX, pady=paddyY)
 
 btn_converted_image = buttonmodule.MyButton(root)
@@ -135,7 +144,8 @@ reducer_label.grid(row=6, column=0, padx=paddyX, pady=paddyY)
 
 # Create a horizontal slider
 slider = tk.Scale(root, from_=0, to=100, orient=tk.HORIZONTAL, 
-     command=update_label)
+     command=update_label,length=200)
+slider.set(20)
 slider.grid(row=7, column=0, padx=paddyX, pady=paddyY)
 
 
@@ -152,20 +162,20 @@ btn_process.location(9, 0, paddyX, paddyY)
 
 
 # Create a label for list box
-listbox_label = tk.Label(root, text="Image list")
-listbox_label.grid(row=0, column=2, padx=20, pady=paddyY, 
+listbox_label = tk.Label(root, text="Image list", font=bold_font)
+listbox_label.grid(row=0, column=2, padx=paddyX, pady=paddyY, 
     sticky='W')
 
 
 # list box of image files
-file_listbox = tk.Listbox(root, width=60, height=15)
-file_listbox.grid(row=1, column=2, columnspan=2, rowspan=6, 
-    padx= 20,  pady=paddyY, sticky='W')
+file_listbox = tk.Listbox(root, width=40, height=25)
+file_listbox.grid(row=1, column=2, columnspan=2, rowspan=10, 
+    padx=paddyX,  pady=paddyY, sticky='W')
 
 #### show calendar
 cal = Calendar(root, selectmode="day", year=today.year, 
-               month=today.month, day=today.day)
-cal.grid(row=1, column=4, rowspan=4, padx = 20, pady=paddyY, sticky='W')
+     month=today.month, day=today.day, date_pattern="yyyy-mm-dd")
+cal.grid(row=1, column=4, rowspan=4, padx=paddyX, pady=paddyY, sticky='W')
 
 
 # Button to Process Images
@@ -176,7 +186,7 @@ btn_getdate.location(5, 4, paddyX, paddyY)
 
 # Create a label for list box
 getdate_label = tk.Label(root, text="")
-getdate_label.grid(row=6, column=4, padx=20, pady=paddyY, 
+getdate_label.grid(row=6, column=4, padx=paddyX, pady=paddyY, 
     sticky='W')
 
 

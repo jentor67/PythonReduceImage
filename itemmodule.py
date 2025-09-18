@@ -18,7 +18,7 @@ class Item():
         location = filedescription[1]
         imagenumber = filedescription[2]
 
-        return material, location, imagenumber
+        return material, location, imagenumber, fileparts[0], fileparts[1]
 
 
 
