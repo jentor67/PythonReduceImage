@@ -99,7 +99,7 @@ paddyY=5
 # Create main window
 root = tk.Tk()
 root.title("Image reducer")
-root.geometry("1000x600")
+root.geometry("1100x700")
 
 bold_font = font.Font(family="Arial", size=11, weight="bold")
 

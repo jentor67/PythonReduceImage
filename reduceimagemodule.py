@@ -80,5 +80,7 @@ class ImgReduce():
                 degrees = 0
             case 8:
                 degrees = 90
+            case _:
+                degrees = 0
 
         return degrees
