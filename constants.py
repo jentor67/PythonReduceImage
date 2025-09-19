@@ -1,7 +1,7 @@
 #!/bin/user/python3
 
-midnight_green="#0F5257"
-prussian_blue="#0B3142"
-rose_quartz="#9C92A3"
-thistle="#C6B9CD"
-lavender_web="#D6D3F0"
+window_bg="#AD9C8E"
+frame_bg="#AD9C8E"
+listbox_bg="#D9BBB0"
+label_bg="#E8D59E"
+button_bg="#F7E6CA"

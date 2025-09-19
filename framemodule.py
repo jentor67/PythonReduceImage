@@ -16,7 +16,7 @@ class MyFrame():
                 master, 
                 width=250, 
                 height=100, 
-                bg=ct.midnight_green,
+                bg=ct.frame_bg,
                 relief="solid", 
                 borderwidth=1)
 

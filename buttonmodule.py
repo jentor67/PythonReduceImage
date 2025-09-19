@@ -17,7 +17,7 @@ class MyButton():
         self.button.configure(
                 width=15, 
                 height=1,
-                bg=ct.thistle)
+                bg=ct.button_bg)
 
     def action(self, commandname):
         self.button.configure(command=commandname)

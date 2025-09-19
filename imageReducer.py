@@ -17,6 +17,7 @@ import buttonmodule
 import itemmodule
 import framemodule as fm
 import tkinter as tk
+import constants as ct
 from tkinter import font
 import os
 from tkinter import filedialog
@@ -101,6 +102,7 @@ paddyY=5
 root = tk.Tk()
 root.title("Image reducer")
 root.geometry("1100x700")
+root.configure(bg=ct.window_bg)
 
 
 bold_font = font.Font(family="Arial", size=11, weight="bold")
@@ -112,7 +114,7 @@ image_frame = fm.MyFrame(root)
 image_frame.location(1,0,2,paddyX,paddyY)
 
 # title label
-image_label = tk.Label(image_frame.frame, 
+image_label = tk.Label(image_frame.frame,bg=ct.label_bg, 
                        text="Choose folder of images",font=bold_font)
 image_label.pack(padx=10, pady=10)
 
@@ -123,8 +125,8 @@ btn_image.action(pick_image_folder)
 btn_image.location_pack(paddyX,paddyY)
 
 # folder display
-input_label = tk.Label(image_frame.frame, text="No folder selected", 
-     wraplength=350, justify="center")
+input_label = tk.Label(image_frame.frame, bg=ct.label_bg,
+     text="No folder selected", wraplength=350, justify="center")
 input_label.pack(padx=10, pady=10)
 
 
@@ -134,8 +136,8 @@ image_out_frame = fm.MyFrame(root)
 image_out_frame.location(3,0,2,paddyX,paddyY)
 
 # title label
-imageout_label = tk.Label(image_out_frame.frame, text="Choose out folder of images",
-                          font=bold_font)
+imageout_label = tk.Label(image_out_frame.frame, bg=ct.label_bg, 
+    text="Choose out folder of images",font=bold_font)
 imageout_label.pack(padx=paddyX, pady=paddyY)
 
 # button
@@ -145,8 +147,8 @@ btn_converted_image.action(pick_converted_image_folder)
 btn_converted_image.location_pack(paddyX,paddyY)
 
 # folder display
-output_label = tk.Label(image_out_frame.frame, text="No folder selected", 
-    wraplength=350, justify="center")
+output_label = tk.Label(image_out_frame.frame, bg=ct.label_bg,
+    text="No folder selected", wraplength=350, justify="center")
 output_label.pack(padx=paddyX,  pady=paddyY)
 
 
@@ -157,8 +159,8 @@ image_slider_frame = fm.MyFrame(root)
 image_slider_frame.location(5,0,2,paddyX,paddyY)
 
 # title label 
-reducer_label = tk.Label(image_slider_frame.frame, text="Percentage Max",
-                          font=bold_font)
+reducer_label = tk.Label(image_slider_frame.frame, bg=ct.label_bg,
+    text="Percentage Max",font=bold_font)
 reducer_label.pack(padx=paddyX, pady=paddyY)
 
 # slider
@@ -168,7 +170,8 @@ slider.set(20)
 slider.pack( padx=paddyX, pady=paddyY)
 
 # Create a label to display the slider's value
-slider_label = tk.Label(image_slider_frame.frame, text="Slider Value: 0")
+slider_label = tk.Label(image_slider_frame.frame, bg=ct.label_bg,
+    text="Slider Value: 0")
 slider_label.pack( padx=paddyX,  pady=paddyY)
 
 
@@ -180,13 +183,15 @@ btn_process.location(9, 0, paddyX, paddyY)
 
 
 # Create a label for list box
-listbox_label = tk.Label(root, text="Image list", font=bold_font)
+listbox_label = tk.Label(root, bg = ct.label_bg,
+    text="Image list", font=bold_font)
 listbox_label.grid(row=0, column=2, padx=paddyX, pady=paddyY, 
     sticky='W')
 
 
 # list box of image files
-file_listbox = tk.Listbox(root, width=40, height=25)
+file_listbox = tk.Listbox(root, bg=ct.listbox_bg, fg='white',
+    width=40, height=25)
 file_listbox.grid(row=1, column=2, columnspan=2, rowspan=10, 
     padx=paddyX,  pady=paddyY, sticky='W')
 
@@ -203,7 +208,7 @@ btn_getdate.action(grab_date)
 btn_getdate.location(5, 4, paddyX, paddyY)
 
 # Create a label for list box
-getdate_label = tk.Label(root, text="")
+getdate_label = tk.Label(root, bg=ct.label_bg, text="")
 getdate_label.grid(row=6, column=4, padx=paddyX, pady=paddyY, 
     sticky='W')
 
