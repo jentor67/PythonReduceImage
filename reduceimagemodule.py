@@ -32,7 +32,8 @@ class ImgReduce():
         width, height = image_file.size
 
         # set new size
-        new_size = ( math.ceil(width*.5), math.ceil(height*.5) )
+        new_size = ( math.ceil(width*self.qValue/100), 
+                    math.ceil(height*self.qValue/100) )
 
         # resize image
         image_file = image_file.resize(new_size)

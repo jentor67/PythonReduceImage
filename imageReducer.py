@@ -15,6 +15,7 @@ associated file:
 import reduceimagemodule
 import buttonmodule
 import itemmodule
+import framemodule as fm
 import tkinter as tk
 from tkinter import font
 import os
@@ -101,57 +102,74 @@ root = tk.Tk()
 root.title("Image reducer")
 root.geometry("1100x700")
 
+
 bold_font = font.Font(family="Arial", size=11, weight="bold")
 
-# Button to choose folder the images are at
 
-image_label = tk.Label(root, text="Choose folder of images",font=bold_font)
-image_label.grid(row=0,column=0,padx=paddyX, pady=paddyY)
+## Choose the folder of the images  ##
+# frame
+image_frame = fm.MyFrame(root)
+image_frame.location(1,0,2,paddyX,paddyY)
 
-btn_image = buttonmodule.MyButton(root) 
+# title label
+image_label = tk.Label(image_frame.frame, 
+                       text="Choose folder of images",font=bold_font)
+image_label.pack(padx=10, pady=10)
+
+# button
+btn_image = buttonmodule.MyButton(image_frame.frame) 
 btn_image.title("Image Folder")
 btn_image.action(pick_image_folder)
-btn_image.location(1,0,paddyX,paddyY)
+btn_image.location_pack(paddyX,paddyY)
 
-
-# Label to display selected folder
-input_label = tk.Label(root, text="No folder selected", 
+# folder display
+input_label = tk.Label(image_frame.frame, text="No folder selected", 
      wraplength=350, justify="center")
-input_label.grid(row=2, column=0, padx=paddyX, pady=paddyY)
+input_label.pack(padx=10, pady=10)
 
 
-# Button to choose converted folder
-imageout_label = tk.Label(root, text="Choose out folder of images",
+## Choose the folder of the output images ##
+# frame
+image_out_frame = fm.MyFrame(root)
+image_out_frame.location(3,0,2,paddyX,paddyY)
+
+# title label
+imageout_label = tk.Label(image_out_frame.frame, text="Choose out folder of images",
                           font=bold_font)
-imageout_label.grid(row=3,column=0,padx=paddyX, pady=paddyY)
+imageout_label.pack(padx=paddyX, pady=paddyY)
 
-btn_converted_image = buttonmodule.MyButton(root)
+# button
+btn_converted_image = buttonmodule.MyButton(image_out_frame.frame)
 btn_converted_image.title("Output Imagee Folder")
 btn_converted_image.action(pick_converted_image_folder)
-btn_converted_image.location(4,0,paddyX,paddyY)
+btn_converted_image.location_pack(paddyX,paddyY)
 
-
-# Label to display selected folder
-output_label = tk.Label(root, text="No folder selected", 
+# folder display
+output_label = tk.Label(image_out_frame.frame, text="No folder selected", 
     wraplength=350, justify="center")
-output_label.grid(row=5, column=0, padx=paddyX,  pady=paddyY)
+output_label.pack(padx=paddyX,  pady=paddyY)
 
 
-# Create a label for Slider
-reducer_label = tk.Label(root, text="Percentage reducer")
-reducer_label.grid(row=6, column=0, padx=paddyX, pady=paddyY)
 
+## Choose image reduction
+# frame
+image_slider_frame = fm.MyFrame(root)
+image_slider_frame.location(5,0,2,paddyX,paddyY)
 
-# Create a horizontal slider
-slider = tk.Scale(root, from_=0, to=100, orient=tk.HORIZONTAL, 
+# title label 
+reducer_label = tk.Label(image_slider_frame.frame, text="Percentage Max",
+                          font=bold_font)
+reducer_label.pack(padx=paddyX, pady=paddyY)
+
+# slider
+slider = tk.Scale(image_slider_frame.frame, from_=0, to=100, orient=tk.HORIZONTAL, 
      command=update_label,length=200)
 slider.set(20)
-slider.grid(row=7, column=0, padx=paddyX, pady=paddyY)
-
+slider.pack( padx=paddyX, pady=paddyY)
 
 # Create a label to display the slider's value
-slider_label = tk.Label(root, text="Slider Value: 0")
-slider_label.grid(row=8, column=0, padx=paddyX,  pady=paddyY)
+slider_label = tk.Label(image_slider_frame.frame, text="Slider Value: 0")
+slider_label.pack( padx=paddyX,  pady=paddyY)
 
 
 # Button to Process Images
