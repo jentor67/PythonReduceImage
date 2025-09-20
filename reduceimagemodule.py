@@ -13,10 +13,11 @@ import math
 
 
 class ImgReduce():
-    def __init__(self, inDir, outDir, qValue):
+    def __init__(self, inDir, outDir, qValue, rValue):
         self.inDir = inDir
         self.outDir = outDir
         self.qValue = qValue
+        self.rValue = rValue
 
 
     def process(self, file, fileName, dateOf, extension ):
@@ -32,8 +33,8 @@ class ImgReduce():
         width, height = image_file.size
 
         # set new size
-        new_size = ( math.ceil(width*self.qValue/100), 
-                    math.ceil(height*self.qValue/100) )
+        new_size = ( math.ceil(width*self.rValue/100), 
+                    math.ceil(height*self.rValue/100) )
 
         # resize image
         image_file = image_file.resize(new_size)
