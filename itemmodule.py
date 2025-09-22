@@ -4,7 +4,7 @@ File: itemmodule.py
 Author: John Major
 Date: 2025-09-15
 Description:  Class to find the parse image file to determine
-material, location, and image no
+segment1, segment2, and segment3
 """
 import tkinter as tk
 
@@ -14,11 +14,11 @@ class Item():
     def getparts(self, item):
         fileparts = item.split('.')
         filedescription = fileparts[0].split('_')
-        material = filedescription[0]
-        location = filedescription[1]
-        imagenumber = filedescription[2]
+        seg1 = filedescription[0]
+        seg2 = filedescription[1]
+        seg3 = filedescription[2]
 
-        return material, location, imagenumber, fileparts[0], fileparts[1]
+        return seg1, seg2, seg3, fileparts[0], fileparts[1]
 
 
 

@@ -49,6 +49,7 @@ class ImgReduce():
 
 
     def getOrientation(self, img):
+        degrees = 0;
 
         # Get EXIF data (if available)
         exif = img._getexif()
@@ -62,27 +63,27 @@ class ImgReduce():
         
             orientation = exif_dict.get("Orientation", None)
             print("Orientation:", orientation)
+
+            match orientation:
+                case 1:
+                    degrees = 0
+                case 2:
+                    degrees = 0
+                case 3:
+                    degrees = 180
+                case 4:
+                    degrees = 0
+                case 5:
+                    degrees = 0
+                case 6:
+                    degrees = 270
+                case 7:
+                    degrees = 0
+                case 8:
+                    degrees = 90
+                case _:
+                    degrees = 0
         else:
             print("No EXIF data found.")
-
-        match orientation:
-            case 1:
-                degrees = 0
-            case 2:
-                degrees = 0
-            case 3:
-                degrees = 180
-            case 4:
-                degrees = 0
-            case 5:
-                degrees = 0
-            case 6:
-                degrees = 270
-            case 7:
-                degrees = 0
-            case 8:
-                degrees = 90
-            case _:
-                degrees = 0
 
         return degrees

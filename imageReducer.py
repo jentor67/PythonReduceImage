@@ -76,11 +76,11 @@ def process_images():
     visible_items = [item for item in files_and_dirs if not item.startswith(".")]
     for item in visible_items: 
         print("Processing file: " + item)
-        material, location, imagenumber, file_name, extension = \
+        segment1, segment2, segment3, file_name, extension = \
           getItemParts.getparts(item)
 
-        print("Material: " + material + " Location: " + location +
-              " ImageNumber: " + imagenumber)
+        print("Segment 1: " + segment1 + " Segment 2: " + segment2 +
+              " Segment 3: " + segment3)
 
         present_date = cal.get_date()
         ConvertImage.process(
@@ -141,12 +141,12 @@ image_out_frame.location(3,0,2,paddyX,paddyY)
 
 # title label
 imageout_label = tk.Label(image_out_frame.frame, bg=ct.label_bg, 
-    text="Choose folder of output",font=bold_font)
+    text="Choose folder to output Images",font=bold_font)
 imageout_label.pack(padx=paddyX, pady=paddyY)
 
 # button
 btn_converted_image = buttonmodule.MyButton(image_out_frame.frame)
-btn_converted_image.title("Output Imagee Folder")
+btn_converted_image.title("Output Image Folder")
 btn_converted_image.action(pick_converted_image_folder)
 btn_converted_image.location_pack(paddyX,paddyY)
 
@@ -154,7 +154,6 @@ btn_converted_image.location_pack(paddyX,paddyY)
 output_label = tk.Label(image_out_frame.frame, bg=ct.label_bg,
     text="No folder selected", wraplength=350, justify="center")
 output_label.pack(padx=paddyX,  pady=paddyY)
-
 
 
 ## Choose image reduction
@@ -197,8 +196,6 @@ slider_res_label.pack( padx=paddyX,  pady=paddyY)
 
 
 
-
-
 # Create a label for list box
 listbox_label = tk.Label(root, bg = ct.label_bg,
     text="Image list", font=bold_font)
@@ -215,7 +212,7 @@ file_listbox.grid(row=1, column=2, columnspan=2, rowspan=10,
 
 # Create a label for calendar
 calendar_label = tk.Label(root, bg = ct.label_bg,
-    text="Choose Date", font=bold_font)
+    text="Choose Suffix Date", font=bold_font)
 calendar_label.grid(row=0, column=4, padx=paddyX, pady=paddyY, 
     sticky='W')
 
