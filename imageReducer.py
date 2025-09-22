@@ -24,13 +24,41 @@ from tkinter import filedialog
 from tkcalendar import *
 import datetime
 from datetime import date
+import xml.etree.ElementTree as ET
 
 
 output_directory = ""
 input_directory = ""
 
 
+# access default settings
+tree = ET.parse('config.xml')
+root = tree.getroot()
+input_directory = root.find('./input_directory').text.strip()
+
+output_directory = root.find('./output_directory').text.strip()
+resolution_scale = root.find('./resolution_scale').text.strip()
+quality_scale = root.find('./quality_scale').text.strip()
+
+
 today = datetime.date.today()
+
+def populate_listbox():
+    global input_directory
+
+    # Clear existing items in the Listbox
+    file_listbox.delete(0, tk.END)
+
+    try:
+        image_files = []
+        files_and_dirs = os.listdir(input_directory)
+        for item in files_and_dirs:
+            image_files.append(item)
+            file_listbox.insert(tk.END, item)
+    except OSError as e:
+        file_listbox.insert(tk.END, f"Error: {e}")
+
+    return
 
 
 def pick_image_folder():
@@ -52,7 +80,7 @@ def pick_image_folder():
         except OSError as e:
             file_listbox.insert(tk.END, f"Error: {e}")
      
-    return image_files
+    return 
 
 
 def pick_converted_image_folder():
@@ -102,10 +130,11 @@ paddyX=15
 paddyY=5
 
 
+
 # Create main window
 root = tk.Tk()
 root.title("Image reducer")
-root.geometry("1050x650")
+root.geometry("1100x650")
 root.configure(bg=ct.window_bg)
 
 
@@ -130,7 +159,7 @@ btn_image.location_pack(paddyX,paddyY)
 
 # folder display
 input_label = tk.Label(image_frame.frame, bg=ct.label_bg,
-     text="No folder selected", wraplength=350, justify="center")
+     text=input_directory, wraplength=350, justify="center")
 input_label.pack(padx=10, pady=10)
 
 
@@ -152,7 +181,7 @@ btn_converted_image.location_pack(paddyX,paddyY)
 
 # folder display
 output_label = tk.Label(image_out_frame.frame, bg=ct.label_bg,
-    text="No folder selected", wraplength=350, justify="center")
+    text=output_directory, wraplength=350, justify="center")
 output_label.pack(padx=paddyX,  pady=paddyY)
 
 
@@ -169,7 +198,7 @@ quality_label.pack(padx=paddyX, pady=paddyY)
 # quality slider
 slider_quality = tk.Scale(image_slider_frame.frame, from_=0, to=100, orient=tk.HORIZONTAL, 
      command=update_label,length=200, bg=ct.listbox_bg, troughcolor='green')
-slider_quality.set(80)
+slider_quality.set(quality_scale) #80)
 slider_quality.pack( padx=paddyX, pady=paddyY)
 
 # Create a label to display the quality's value
@@ -186,7 +215,7 @@ resolution_label.pack(padx=paddyX, pady=paddyY)
 # resolution slider
 slider_resolution = tk.Scale(image_slider_frame.frame, from_=0, to=100, orient=tk.HORIZONTAL, 
      command=update_res_label,length=200, bg=ct.listbox_bg,troughcolor='blue')
-slider_resolution.set(80)
+slider_resolution.set(resolution_scale)
 slider_resolution.pack( padx=paddyX, pady=paddyY)
 
 # Create a label to display the resolution percentage value
@@ -209,6 +238,7 @@ file_listbox = tk.Listbox(root, bg=ct.listbox_bg, fg='black',
 file_listbox.grid(row=1, column=2, columnspan=2, rowspan=10, 
     padx=paddyX,  pady=paddyY, sticky='W')
 
+populate_listbox()
 
 # Create a label for calendar
 calendar_label = tk.Label(root, bg = ct.label_bg,
