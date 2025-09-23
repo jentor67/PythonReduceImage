@@ -60,10 +60,9 @@ class ImgReduce():
                 ExifTags.TAGS.get(tag, tag): value
                 for tag, value in exif.items()
             }
-        
+            
             orientation = exif_dict.get("Orientation", None)
-            print("Orientation:", orientation)
-
+    
             match orientation:
                 case 1:
                     degrees = 0
@@ -83,7 +82,5 @@ class ImgReduce():
                     degrees = 90
                 case _:
                     degrees = 0
-        else:
-            print("No EXIF data found.")
 
         return degrees

@@ -9,6 +9,10 @@ reduce image using Pillow
 
 associated file:
     buttonmodule.py
+    config.xml
+    constants.py
+    framemodule.py
+    itemmodule.py
     reduceimagemodule.py
 """
 
@@ -67,19 +71,8 @@ def pick_image_folder():
     if input_directory:
         input_label.config(text=f"Selected Folder:\n{input_directory}")
 
+        populate_listbox()
 
-        # Clear existing items in the Listbox
-        file_listbox.delete(0, tk.END)
-
-        try:
-            image_files = []
-            files_and_dirs = os.listdir(input_directory)
-            for item in files_and_dirs:
-                image_files.append(item)
-                file_listbox.insert(tk.END, item)
-        except OSError as e:
-            file_listbox.insert(tk.END, f"Error: {e}")
-     
     return 
 
 
@@ -121,6 +114,7 @@ def update_label(value):
     # This function is called when the slider value changes
     slider_label.config(text=f"Quality Value: {int(float(value))}")
 
+
 def update_res_label(value):
     # This function is called when the slider value changes
     slider_res_label.config(text=f"Resulution percentage Value: {int(float(value))}")
@@ -139,6 +133,7 @@ root.configure(bg=ct.window_bg)
 
 
 bold_font = font.Font(family="Arial", size=10, weight="bold")
+small_font = font.Font(family="Arial", size=8)
 
 
 ## Choose the folder of the images  ##
@@ -190,13 +185,18 @@ output_label.pack(padx=paddyX,  pady=paddyY)
 image_slider_frame = fm.MyFrame(root)
 image_slider_frame.location(5,0,5,paddyX,paddyY)
 
+# quality description
+quality_des_label = tk.Label(image_slider_frame.frame, bg=ct.label_bg,
+    text="From pillow module assign quality from 0-95",font=small_font)
+quality_des_label.pack(padx=paddyX, pady=paddyY)
+
 # quality label 
 quality_label = tk.Label(image_slider_frame.frame, bg=ct.label_bg,
     text="Quality",font=bold_font)
 quality_label.pack(padx=paddyX, pady=paddyY)
 
 # quality slider
-slider_quality = tk.Scale(image_slider_frame.frame, from_=0, to=100, orient=tk.HORIZONTAL, 
+slider_quality = tk.Scale(image_slider_frame.frame, from_=0, to=95, orient=tk.HORIZONTAL, 
      command=update_label,length=200, bg=ct.listbox_bg, troughcolor='green')
 slider_quality.set(quality_scale) #80)
 slider_quality.pack( padx=paddyX, pady=paddyY)
@@ -206,6 +206,10 @@ slider_label = tk.Label(image_slider_frame.frame, bg=ct.label_bg,
     text="Quality Value: 80")
 slider_label.pack( padx=paddyX,  pady=paddyY)
 
+# resolution description
+resolution_des_label = tk.Label(image_slider_frame.frame, bg=ct.label_bg,
+    text="From pillow module resize by % of original image size",font=small_font)
+resolution_des_label.pack(padx=paddyX, pady=paddyY)
 
 # resolution label 
 resolution_label = tk.Label(image_slider_frame.frame, bg=ct.label_bg,
@@ -226,7 +230,7 @@ slider_res_label.pack( padx=paddyX,  pady=paddyY)
 
 
 # Create a label for list box
-listbox_label = tk.Label(root, bg = ct.label_bg,
+listbox_label = tk.Label(root, bg = ct.window_bg,
     text="Image list", font=bold_font)
 listbox_label.grid(row=0, column=2, padx=paddyX, pady=paddyY, 
     sticky='W')
@@ -241,7 +245,7 @@ file_listbox.grid(row=1, column=2, columnspan=2, rowspan=10,
 populate_listbox()
 
 # Create a label for calendar
-calendar_label = tk.Label(root, bg = ct.label_bg,
+calendar_label = tk.Label(root, bg = ct.window_bg,
     text="Choose Suffix Date", font=bold_font)
 calendar_label.grid(row=0, column=4, padx=paddyX, pady=paddyY, 
     sticky='W')
