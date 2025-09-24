@@ -18,7 +18,7 @@ class Item():
         seg2 = filedescription[1]
         seg3 = filedescription[2]
 
-        return seg1, seg2, seg3, fileparts[0], fileparts[1]
+        return filedescription, fileparts[0], fileparts[1]
 
 
 

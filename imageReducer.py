@@ -94,14 +94,15 @@ def process_images():
     getItemParts = itemmodule.Item()
 
     files_and_dirs = os.listdir(input_directory)
-    visible_items = [item for item in files_and_dirs if not item.startswith(".")]
+    visible_items = [item for item in files_and_dirs if not 
+                     (item.startswith(".") or item.startswith("Thumbs.db"))]
     for item in visible_items: 
         print("Processing file: " + item)
-        segment1, segment2, segment3, file_name, extension = \
+        filedescribe, file_name, extension = \
           getItemParts.getparts(item)
 
-        print("Segment 1: " + segment1 + " Segment 2: " + segment2 +
-              " Segment 3: " + segment3)
+        print("File Description:" )
+        print(filedescribe)
 
         present_date = cal.get_date()
         ConvertImage.process(
