@@ -218,8 +218,16 @@ resolution_label = tk.Label(image_slider_frame.frame, bg=ct.label_bg,
 resolution_label.pack(padx=paddyX, pady=paddyY)
 
 # resolution slider
-slider_resolution = tk.Scale(image_slider_frame.frame, from_=0, to=100, orient=tk.HORIZONTAL, 
-     command=update_res_label,length=200, bg=ct.listbox_bg,troughcolor='blue')
+slider_resolution = tk.Scale(
+        image_slider_frame.frame, 
+        from_=0, 
+        to=100, 
+        orient=tk.HORIZONTAL, 
+        command=update_res_label,
+        length=200, 
+        bg=ct.listbox_bg,
+        troughcolor='blue'
+        )
 slider_resolution.set(resolution_scale)
 slider_resolution.pack( padx=paddyX, pady=paddyY)
 
@@ -262,7 +270,7 @@ cal.grid(row=1, column=4, rowspan=4, padx=paddyX, pady=paddyY, sticky='W')
 btn_process = buttonmodule.MyButton(root)
 btn_process.title("Process Images")
 btn_process.action(process_images)
-btn_process.location(9, 4, paddyX, paddyY)
+btn_process.location(8, 4, paddyX, paddyY)
 
 # Run the GUI
 root.mainloop()

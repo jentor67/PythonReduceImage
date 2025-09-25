@@ -1,5 +1,5 @@
 <config>
-  <input_directory>/home/jmajor/Pics_in</input_directory>
+  <input_directory>/home/jmajor/Git/PythonReduceImage/Images</input_directory>
   <output_directory>/home/jmajor/Pics_out</output_directory>
   <resolution_scale>40</resolution_scale>
   <quality_scale>50</quality_scale>

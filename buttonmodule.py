@@ -8,16 +8,32 @@ Description:  Class to create button
 import tkinter as tk
 import constants as ct
 
-#tk.Button(root, text="Click Me", width=15, height=1)
 
 class MyButton():
     def __init__(self, master):
         self.master = master
         self.button = tk.Button(master)
         self.button.configure(
-                width=15, 
-                height=1,
-                bg=ct.button_bg)
+                   activebackground=ct.button_active,
+                   activeforeground="white",
+                   anchor="center",
+                   bd=3,
+                   bg=ct.button_bg,
+                   cursor="hand2",
+                   disabledforeground="gray",
+                   fg="black",
+                   font=("Arial", 11),
+                   height=2,
+                   highlightbackground="black",
+                   highlightcolor="green",
+                   highlightthickness=2,
+                   justify="center",
+                   overrelief="raised",
+                   padx=10,
+                   pady=5,
+                   width=15,
+                   wraplength=100
+                )
 
     def action(self, commandname):
         self.button.configure(command=commandname)
